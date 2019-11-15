@@ -70,11 +70,35 @@ class UpdateMovie extends React.Component {
             <div className="update-wrapper">
                 <h1>Update Movie</h1>
                 <form onSubmit={(e) => this.handleSubmit(e)}>
-                    <input type="text" placeholder="Enter title" name="title" value={this.state.movie.title} onChange={this.handleChange} />
-                    <input type="text" placeholder="Enter director" name="director" value={this.state.movie.director} onChange={this.handleChange} />
-                    <input type="number" placeholder="Enter metascore" name="metascore" value={this.state.movie.metascore} onChange={this.handleChange} />
+                    <label>Title: <input 
+                        type="text" 
+                        placeholder="Enter title" 
+                        name="title" 
+                        value={this.state.movie.title} 
+                        onChange={this.handleChange} 
+                    /></label>
+                    <label htmlFor="">Director:<input 
+                        type="text" 
+                        placeholder="Enter director" 
+                        name="director" 
+                        value={this.state.movie.director} 
+                        onChange={this.handleChange} 
+                    /></label>
+                    <label htmlFor="">Metascore:<input 
+                        type="number" 
+                        placeholder="Enter metascore" 
+                        name="metascore" 
+                        value={this.state.movie.metascore} 
+                        onChange={this.handleChange} 
+                    /></label>
                     {this.state.movie.stars.map((star, index) => (
-                        <input key={index} type="text" placeholder="Enter star" name="star" value={star} onChange={(e) => this.handleStarChange(e, index)} />
+                        <label>Stars:<input 
+                            key={index} 
+                            type="text" 
+                            placeholder="Enter star" 
+                            name="star" value={star} 
+                            onChange={(e) => this.handleStarChange(e, index)} 
+                        /></label>
                     ))}
                     <button>Update</button>
                 </form>
