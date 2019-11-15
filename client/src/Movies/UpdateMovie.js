@@ -18,7 +18,7 @@ class UpdateMovie extends React.Component {
         axios.get(`http://localhost:5000/api/movies/${id}`)
             .then(res => {
                 // console.log("update: ",res.data)
-                this.setState({...this.state, movie: res.data});
+                this.setState({ ...this.state, movie: res.data });
             })
             .catch(err => {
                 console.log("Error: ", err);
@@ -36,21 +36,30 @@ class UpdateMovie extends React.Component {
         })
     }
 
+    handleStarChange = (e, index) => {
+        const newStars = this.state.movie.stars.slice() //copy the array
+        newStars[index] = e.target.value; //execute the manipulations
+
+        this.setState({
+            movie: {
+                ...this.state.movie,
+                stars: newStars
+            }
+        })
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`http://localhost:5000/api/movies/${this.props.match.params.id}`, this.state.movie)
             .then(res => {
                 console.log("Update response:", res);
-                // this.setState({...this.state, movie: res.data});
+                this.props.history.push(`/`);
             })
             .catch(err => {
                 console.log(err);
             })
     }
-    // id: 5,
-    // title: 'Tombstone',
-    // director: 'George P. Cosmatos',
-    // metascore: 89,
+
     // stars: ['Kurt Russell', 'Bill Paxton', 'Sam Elliot'],
 
     render() {
@@ -64,6 +73,9 @@ class UpdateMovie extends React.Component {
                     <input type="text" placeholder="Enter title" name="title" value={this.state.movie.title} onChange={this.handleChange} />
                     <input type="text" placeholder="Enter director" name="director" value={this.state.movie.director} onChange={this.handleChange} />
                     <input type="number" placeholder="Enter metascore" name="metascore" value={this.state.movie.metascore} onChange={this.handleChange} />
+                    {this.state.movie.stars.map((star, index) => (
+                        <input key={index} type="text" placeholder="Enter star" name="star" value={star} onChange={(e) => this.handleStarChange(e, index)} />
+                    ))}
                     <button>Update</button>
                 </form>
             </div>
